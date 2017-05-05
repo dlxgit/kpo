@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "LongArithmetics", "LongArithmetics.vcxproj", "{24347136-20C8-4F84-A381-AAC891ED7829}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "TheApplicationTests", "..\TheApplicationTests\TheApplicationTests.vcxproj", "{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|x64 = Debug|x64
+		Debug|x86 = Debug|x86
+		Release|x64 = Release|x64
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Debug|x64.ActiveCfg = Debug|x64
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Debug|x64.Build.0 = Debug|x64
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Debug|x86.ActiveCfg = Debug|Win32
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Debug|x86.Build.0 = Debug|Win32
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Release|x64.ActiveCfg = Release|x64
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Release|x64.Build.0 = Release|x64
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Release|x86.ActiveCfg = Release|Win32
+		{24347136-20C8-4F84-A381-AAC891ED7829}.Release|x86.Build.0 = Release|Win32
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Debug|x64.ActiveCfg = Debug|x64
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Debug|x64.Build.0 = Debug|x64
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Debug|x86.ActiveCfg = Debug|Win32
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Debug|x86.Build.0 = Debug|Win32
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Release|x64.ActiveCfg = Release|x64
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Release|x64.Build.0 = Release|x64
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Release|x86.ActiveCfg = Release|Win32
+		{3C9C55E9-F62F-4CE0-AF1A-DA103C7BCA69}.Release|x86.Build.0 = Release|Win32
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

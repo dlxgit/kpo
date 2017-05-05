@@ -1,0 +1,11 @@
+triangle 4 409 123 228 123 409
+rectangle 125 226 284 183
+rectangle 217 130 69 35
+rectangle 233 166 35 59
+rectangle 410 87 210 322
+rectangle 467 123 111 95
+circle 98 412 68
+circle 249 412 68
+circle 436 359 96
+circle 490 415 40
+rectangle 146 467 419 22
