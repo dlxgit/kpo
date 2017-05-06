@@ -5,6 +5,35 @@
 #include "../LongArithmetics/LongNumber.h"
 
 
+BOOST_AUTO_TEST_SUITE(creating_longnumber_from)
+	BOOST_AUTO_TEST_CASE(digits)
+	{
+		std::vector<int> vec = { 1,2,3,4 };
+		BOOST_CHECK_EQUAL(CLongNumber("1234"), CLongNumber(vec));
+		BOOST_CHECK(CLongNumber("1234").GetData() == vec);
+	}
+	BOOST_AUTO_TEST_CASE(digits_wit_non_digits)
+	{
+		BOOST_REQUIRE_THROW(CLongNumber("1234@"), std::invalid_argument);
+		BOOST_REQUIRE_THROW(CLongNumber("1234a"), std::invalid_argument);
+	}
+
+	BOOST_AUTO_TEST_CASE(number_with_beginning_zero)
+	{
+		CLongNumber longNumber = CLongNumber("00001");
+		std::vector<int> vec = { 1 };
+		BOOST_CHECK(longNumber.GetData() == vec);
+	}
+	BOOST_AUTO_TEST_CASE(number_with_all_zero)
+	{
+		CLongNumber longNumber = CLongNumber("0000");
+		std::vector<int> vec;
+		vec.push_back(0);
+		BOOST_CHECK(longNumber.GetData() == vec);
+	}
+
+BOOST_AUTO_TEST_SUITE_END()
+
 BOOST_AUTO_TEST_SUITE(operator_plus)
 	BOOST_AUTO_TEST_CASE(same_size)
 	{
@@ -151,9 +180,14 @@ BOOST_AUTO_TEST_SUITE_END()
 
 
 BOOST_AUTO_TEST_SUITE(operator_div)
+
+BOOST_AUTO_TEST_CASE(equal_numbers)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("1234567890") / CLongNumber("1234567890"), CLongNumber("1"));
+}
 BOOST_AUTO_TEST_CASE(number_by_zero)
 {
-	BOOST_REQUIRE_THROW(CLongNumber("5") / CLongNumber("0"));
+	BOOST_REQUIRE_THROW(CLongNumber("5") / CLongNumber("0"), std::invalid_argument);
 }
 BOOST_AUTO_TEST_CASE(zero_by_number)
 {
@@ -161,7 +195,7 @@ BOOST_AUTO_TEST_CASE(zero_by_number)
 }
 BOOST_AUTO_TEST_CASE(zero_by_zero)
 {
-	BOOST_REQUIRE_THROW(CLongNumber("0") / CLongNumber("0"), CLongNumber("0"));
+	BOOST_REQUIRE_THROW(CLongNumber("0") / CLongNumber("0"), std::invalid_argument);
 }
 
 BOOST_AUTO_TEST_CASE(big_by_small)

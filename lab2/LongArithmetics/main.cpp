@@ -12,7 +12,7 @@
 int main()
 {
 
-	CLongNumber a = CLongNumber("20") * CLongNumber("0");
+	CLongNumber a = CLongNumber("1201") / CLongNumber("11");
 	std::cout << a;
 
 	return 0;

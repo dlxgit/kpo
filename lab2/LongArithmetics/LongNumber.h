@@ -6,18 +6,41 @@
 #include <boost/algorithm/string/classification.hpp>
 #include <boost/math/constants/constants.hpp>
 #include <boost/lexical_cast.hpp>
+#include <locale>
 
 class CLongNumber
 {
 public:
 	CLongNumber(const std::string & data)
 	{
+		//?
 		m_data.clear();
-		
+		if (data.length() == 1 && data[0] == '0')
+		{
+			m_data.push_back(0);
+			return;
+		}
+
+		bool begin = true;
 		for (auto el : data)
 		{
-			m_data.push_back(boost::lexical_cast<int>(el));
+			if(isdigit(el))
+			if (begin && el == '0')
+			{
+
+			}
+			else
+			{
+				begin = false;
+				m_data.push_back(boost::lexical_cast<int>(el));
+			}
 		}
+	};
+
+	CLongNumber(const CLongNumber & other)
+		:m_data(other.m_data)
+	{
+		
 	};
 
 	CLongNumber(const std::vector<int> & data)

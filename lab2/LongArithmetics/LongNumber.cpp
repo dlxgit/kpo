@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "LongNumber.h"
 #include <algorithm>
+#include <sstream>
 
 std::vector<int> CLongNumber::GetData() const
 {
@@ -165,35 +166,79 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 {
 	auto a = m_data;
 	int size_a = a.size();
-	std::reverse(a.begin(), a.end());
+	//std::reverse(a.begin(), a.end());
 
 	auto b = right.GetData();
 	int size_b = b.size();
-	std::reverse(b.begin(), b.end());
+	//std::reverse(b.begin(), b.end());
 
-	int zero_count_a = 0;
-	for (; zero_count_a < size_a && a[zero_count_a] == 0; ++zero_count_a){};
 
-	int zero_count_b = 0;
-	for (; zero_count_b < size_b && b[zero_count_b] == 0; ++zero_count_b){};
 	
-	if (zero_count_b == b.size())
+	if (right == CLongNumber("0"))
 	{
 		throw(std::invalid_argument("division by zero"));
 	}
-	else if (zero_count_a == a.size())
+	else if (*this== CLongNumber("0"))
 	{
 		return CLongNumber("0");
 	}
-	else if ()
+	else if (*this < right)
 	{
-
+		return CLongNumber("0");
+	}
+	else if (*this == right)
+	{
+		return CLongNumber("1");
 	}
 
 	int i = 0;
+	std::vector<int> result;
+
+	CLongNumber temp(*this);
+	CLongNumber rest("0");
+
 	while (true)
 	{
-		
+		if (i > size_a - size_b)
+		{
+			return CLongNumber(result);
+		}
+
+		std::vector<int> current;
+
+		current.insert(current.begin(), temp.m_data.begin() + i, temp.m_data.begin() + i + size_b);
+		if (rest.m_data[0] == 0)
+		{
+
+		}
+		else
+		{
+			current.erase(current.begin(), current.begin() + rest.m_data.size());
+
+			current.insert(current.begin(), rest.m_data.begin(), rest.m_data.end());
+			current = (CLongNumber(current) + rest).m_data;
+		}
+
+		bool checked = false;
+		for (size_t i = 0; i < 11; ++i)
+		{
+			std::string nStr = boost::lexical_cast<std::string>(i);
+			
+			if (right * CLongNumber(nStr) > CLongNumber(current))
+			{
+				checked = true;
+				result.push_back(i - 1);
+				rest = temp - CLongNumber(boost::lexical_cast<std::string>(i - 1)) * right;
+				rest.erase(rest.begin() + right.m_data.size(), rest.end());
+				break;
+			}
+			
+		}
+
+		if (!checked)
+		{
+			//err?
+		}
 	}
 	
 	return CLongNumber(std::vector<int>(1));
