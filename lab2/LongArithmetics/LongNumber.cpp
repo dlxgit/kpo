@@ -9,8 +9,6 @@ std::vector<int> CLongNumber::GetData() const
 
 CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 {
-	int length;
-
 	auto a = m_data;
 	int size_a = a.size();
 	std::reverse(a.begin(), a.end());
@@ -19,30 +17,19 @@ CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 	int size_b = b.size();
 	std::reverse(b.begin(), b.end());
 
+	//std::vector<int> result(std::max(size_a, size_b) + 1);
 	std::vector<int> result;
 
 	int index = 0;
 	int rest = 0;
 
+	//result.erase(result.begin(), result.begin() + a.size() - 1);
+	result.insert(result.begin(), a.begin(), a.end());
 
-// 	int foo = 1;
-// 	while (true)
-// 	{
-// 		int bar = foo;
-// 		int foo = 3;
-// 	}
-
-	for (; index < size_a || index < size_b; ++index)
+	for (; index < size_b; ++index)
 	{
-		int firstOperand = index >= size_a ? 0 : a[index];
-		int secondOperand = index >= size_b ? 0 : b[index];
-
-		int resValue = firstOperand + secondOperand + rest;
-		rest = (resValue > 9) ? resValue - 9 : 0;
-		result.push_back(resValue % 10);
+		AddNumber(result, index, b[index]);
 	}
-
-
 
 	std::reverse(result.begin(), result.end());
 
@@ -51,8 +38,6 @@ CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 
 CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 {
-	int length;
-
 	auto a = m_data;
 	int size_a = a.size();
 	std::reverse(a.begin(), a.end());
@@ -93,10 +78,6 @@ CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 		result.push_back(resValue);
 	}
 
-	if (rest != 0)
-	{
-		result.push_back(rest);
-	}
 	
 	while (result.begin() + 1 != result.end() && result.back() == 0)
 	{
@@ -110,8 +91,6 @@ CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 
 CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 {
-	int length;
-
 	auto a = m_data;
 	int size_a = a.size();
 	std::reverse(a.begin(), a.end());
@@ -122,16 +101,10 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 
 
 	int zero_count_a = 0;
-	while (m_data[zero_count_a] == 0) 
-	{
-		++zero_count_a;
-	};
+	for (; zero_count_a < size_a && a[zero_count_a] == 0; ++zero_count_a){};
 
 	int zero_count_b = 0;
-	while (m_data[zero_count_b] == 0)
-	{
-		++zero_count_b;
-	};
+	for (; zero_count_b < size_b && b[zero_count_b] == 0; ++zero_count_b){};
 	
 	if (zero_count_a == a.size() || zero_count_b == b.size())
 	{
@@ -139,13 +112,24 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 	}
 
 	std::vector<int> result;
+	//std::vector<int> result(size_a * size_b);
+	for (size_t i = 0; i < size_a * size_b; ++i)
+	{
+		result.push_back(0);
+	}
+// 	for (auto & el : result)
+// 	{
+// 		el = 0;
+// 	}
+
 	int index = 0;
 	int rest = 0;
 	for (int i1 = zero_count_a; i1 < size_a; ++i1)
 	{
 		for (int i2 = zero_count_b; i2 < size_b; ++i2)
 		{
-			
+			int res = a[i1] * b[i2] + rest;
+			AddNumber(result, i1 + i2, res);
 		}
 	}
 
@@ -156,19 +140,19 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 	// 		int foo = 3;
 	// 	}
 
-	for (; index < size_a || index < size_b; ++index)
-	{
-		int firstOperand = index >= size_a ? 0 : a[index];
-		int secondOperand = index >= size_b ? 0 : b[index];
-
-		int resValue = firstOperand + secondOperand + rest;
-		rest = (resValue > 9) ? resValue - 9 : 0;
-		result.push_back(resValue % 10);
-	}
+// 	for (size_t i = 0; i < zero_count_a * zero_count_b; ++i)
+// 	{
+// 		result.insert(result.begin(), 0);
+// 	}
 
 	if (rest != 0)
 	{
 		result.push_back(rest);
+	}
+
+	while (result.begin() + 1 != result.end() && result.back() == 0)
+	{
+		result.erase(result.end() - 1);
 	}
 
 	std::reverse(result.begin(), result.end());
@@ -179,6 +163,39 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 
 CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 {
+	auto a = m_data;
+	int size_a = a.size();
+	std::reverse(a.begin(), a.end());
+
+	auto b = right.GetData();
+	int size_b = b.size();
+	std::reverse(b.begin(), b.end());
+
+	int zero_count_a = 0;
+	for (; zero_count_a < size_a && a[zero_count_a] == 0; ++zero_count_a){};
+
+	int zero_count_b = 0;
+	for (; zero_count_b < size_b && b[zero_count_b] == 0; ++zero_count_b){};
+	
+	if (zero_count_b == b.size())
+	{
+		throw(std::invalid_argument("division by zero"));
+	}
+	else if (zero_count_a == a.size())
+	{
+		return CLongNumber("0");
+	}
+	else if ()
+	{
+
+	}
+
+	int i = 0;
+	while (true)
+	{
+		
+	}
+	
 	return CLongNumber(std::vector<int>(1));
 }
 
