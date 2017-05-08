@@ -11,6 +11,7 @@
 class CLongNumber
 {
 public:
+	CLongNumber() = default;
 	CLongNumber(const std::string & data)
 	{
 		//?
@@ -22,17 +23,23 @@ public:
 		}
 
 		bool begin = true;
-		for (auto el : data)
+		for (size_t i = 0; i < data.length(); ++i)
 		{
-			if(isdigit(el))
-			if (begin && el == '0')
+			if (!isdigit(data[i]))
 			{
-
+				throw std::invalid_argument("incorrent symbol");
+			}
+			if (begin && data[i] == '0')
+			{
+				if (i == data.size() - 1)
+				{
+					m_data.push_back(boost::lexical_cast<int>(data[i]));
+				}
 			}
 			else
 			{
 				begin = false;
-				m_data.push_back(boost::lexical_cast<int>(el));
+				m_data.push_back(boost::lexical_cast<int>(data[i]));
 			}
 		}
 	};
@@ -76,22 +83,31 @@ public:
 		}
 		else if (m_data.size() > right.m_data.size())
 		{
-			return false;
+			return true;
 		}
 		
 		for (size_t i = 0; i < m_data.size(); ++i)
 		{
-			if (this->m_data[i] > right.m_data[i])
+			if (this->m_data[i] == right.m_data[i])
+			{
+
+			}
+			else if (this->m_data[i] > right.m_data[i])
 			{
 				return true;
 			}
+			else
+			{
+				return false;
+			}
+
 		}
 		return false;
 	};
 
 	bool operator<(const CLongNumber & right) const
 	{
-		if (*this == right || !(*this > right))
+		if (*this == right || (*this > right))
 		{
 			return false;
 		}
@@ -134,5 +150,22 @@ private:
 			vec.push_back(rest);
 			rest /= 10;
 		}
+	}
+
+	static void fillVectorWithZeroTillSize(std::vector<int> & vec, size_t size)
+	{
+		while (vec.size() < size)
+		{
+			vec.push_back(0);
+		}
+	}
+	static std::vector<int> getFirstNVec(const std::vector<int> & vec, size_t n)
+	{
+		if (n > vec.size())
+		{
+			throw std::logic_error("finish");
+		}
+
+		return std::vector<int>(vec.begin(), vec.begin() + n);
 	}
 };

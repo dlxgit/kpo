@@ -197,6 +197,171 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 	CLongNumber temp(*this);
 	CLongNumber rest("0");
 
+	int count_miss = 0;
+	int count_size_div = size_b;
+	bool begin = true;
+
+	int last_div_zero_beginning_count = 0;
+	int res_copy_size = 0;
+	try
+	{
+		//
+		while (temp.m_data.size() >= size_b - count_miss || begin)
+		{
+			begin = false;
+
+			bool checked = false;
+			bool bad_result = false;
+			for (size_t i = 0; i < 11; ++i)
+			{
+				std::string nStr = boost::lexical_cast<std::string>(i);
+
+
+				// 			if (!result.empty() && result[result.size() - 1] == 0)
+				// 			{
+				// 				firstN = CLongNumber(getFirstNVec(temp.m_data, right.m_data.size() + 1));
+				// 			}
+							//else {
+				if (count_size_div > size_b)
+				{
+
+				}
+
+				CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, res_copy_size + 1));
+// 				if()
+// 				if (last_div_zero_beginning_count >= 1)
+// 				{
+// 					firstN = CLongNumber(getFirstNVec(temp.m_data, right.m_data.size() - last_div_zero_beginning_count + 1));
+// 				}
+
+
+				//}
+	// 			if (firstN.m_data.size() > 1)
+	// 			{
+	// 				if (count_size_div > right.m_data.size())
+	// 				{
+	// 					
+	// 				}
+	// 			}
+				if (firstN < right)
+				{
+					++res_copy_size;
+					if (!result.empty())
+					{
+						//if (temp > right || temp == right)
+						{
+							result.push_back(0);
+						}
+						if (firstN.m_data.size() >= right.m_data.size())
+						{
+							++count_size_div;
+						}
+						bad_result = true;
+						//last_div_zero_beginning_count = 0;
+						if (firstN.m_data.size() >= right.m_data.size())
+						{
+							last_div_zero_beginning_count = 0;
+						}
+						else
+						{
+							last_div_zero_beginning_count--;
+						}
+
+						break;
+					}
+					else
+					{
+						++count_miss;
+						if (firstN.m_data.size() >= right.m_data.size())
+						{
+							++count_size_div;
+						}
+						bad_result = true;
+						last_div_zero_beginning_count = 0;
+						break;
+					}
+				}
+
+				CLongNumber tmp_sub = CLongNumber(right * CLongNumber(nStr));
+				//auto vec_tmp_sub = tmp_sub.GetData();
+				//temp.size?
+				//fillVectorWithZeroTillSize(vec_tmp_sub, firstN.m_data.size());
+				//tmp_sub = CLongNumber(vec_tmp_sub);
+
+				if (tmp_sub > firstN)
+				{
+					last_div_zero_beginning_count = 1;
+
+					checked = true;
+					result.push_back(i - 1);
+
+					auto temp_right = (CLongNumber(boost::lexical_cast<std::string>(i - 1)) * right).GetData();
+
+					/*
+					if (count_size_div == size_b + 1)
+					{
+						temp_right.insert(temp_right.begin(), 0);
+						--count_size_div; //?
+					}
+					*/
+					int size_result = (firstN - temp_right).m_data.size();
+					res_copy_size = size_result;
+					int count_size_div_additional = 0;
+					if (count_size_div == size_b + 1)
+					{
+						//temp_right.insert(temp_right.begin(), 0);
+						if (size_result != right.m_data.size())
+						{
+							count_size_div_additional = 1;
+						}
+						--count_size_div; //?
+					}
+					else
+					{
+						//fillVectorWithZeroTillSize(temp_right, temp.m_data.size());
+
+					}
+
+					bool isLastOperation = temp.m_data.size() <= firstN.m_data.size();
+
+					fillVectorWithZeroTillSize(temp_right, temp.m_data.size() - (firstN.m_data.size() - temp_right.size()));
+
+					CLongNumber res = temp - CLongNumber(temp_right);
+					//count_size_div = firstN.m_data.size() - result.size() + 1;
+					//last_div_zero_beginning_count = (size_result) - count_size_div_additional;//temp.m_data.size() - res.m_data.size();
+					last_div_zero_beginning_count = firstN.m_data.size() - size_result - count_size_div_additional;
+					temp = res;
+
+					if (temp < right)
+					{
+						if (temp != CLongNumber("0") && !isLastOperation)
+						{
+							result.push_back(0);
+						}
+						
+						return result;
+					}
+					// 				rest.erase(rest.begin() + right.m_data.size(), rest.end());
+					break;
+				}
+			}
+			if (bad_result)
+			{
+				continue;
+			}
+			if (!checked)
+			{
+				result.push_back(0);
+			}
+		}
+	}
+	catch (std::logic_error)
+	{
+		result.push_back(0);
+	}
+
+
+/*
 	while (true)
 	{
 		if (i > size_a - size_b)
@@ -240,8 +405,8 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			//err?
 		}
 	}
-	
-	return CLongNumber(std::vector<int>(1));
+	*/
+	return CLongNumber(result);
 }
 
 bool CLongNumber::operator==(const CLongNumber & right) const

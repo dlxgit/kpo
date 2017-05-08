@@ -5,6 +5,21 @@
 #include "../LongArithmetics/LongNumber.h"
 
 
+
+BOOST_AUTO_TEST_SUITE(operators_compare)
+BOOST_AUTO_TEST_CASE(more_from_str)
+{
+	BOOST_CHECK(CLongNumber("000") > CLongNumber("0") == false);
+}
+
+BOOST_AUTO_TEST_CASE(less_from_str)
+{
+	BOOST_CHECK(CLongNumber("0") < CLongNumber("00") == false);
+}
+
+BOOST_AUTO_TEST_SUITE_END()
+
+
 BOOST_AUTO_TEST_SUITE(creating_longnumber_from)
 	BOOST_AUTO_TEST_CASE(digits)
 	{
@@ -92,7 +107,7 @@ BOOST_AUTO_TEST_CASE(same_size)
 
 // BOOST_AUTO_TEST_CASE(size_1_less_than_2)
 // {
-// 	BOOST_CHECK_EQUAL(CLongNumber("1234") - CLongNumber("12345"), CLongNumber("1111"));
+// 	BOOST_CHECK_EQUAL(CLongNumber("12") - CLongNumber("123"), CLongNumber("111"));
 // }
 
 BOOST_AUTO_TEST_CASE(size_2_less_than_1)
@@ -198,6 +213,16 @@ BOOST_AUTO_TEST_CASE(zero_by_zero)
 	BOOST_REQUIRE_THROW(CLongNumber("0") / CLongNumber("0"), std::invalid_argument);
 }
 
+BOOST_AUTO_TEST_CASE(small_size_2_by_small_size_1)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("10") / CLongNumber("2"), CLongNumber("5"));
+}
+
+BOOST_AUTO_TEST_CASE(small_with_last_small_rest_by_small)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("354") / CLongNumber("5"), CLongNumber("70"));
+}
+
 BOOST_AUTO_TEST_CASE(big_by_small)
 {
 	BOOST_CHECK_EQUAL(CLongNumber("20") / CLongNumber("10"), CLongNumber("2"));
@@ -208,9 +233,25 @@ BOOST_AUTO_TEST_CASE(small_by_big)
 	BOOST_CHECK_EQUAL(CLongNumber("10") / CLongNumber("20"), CLongNumber("0"));
 }
 
+BOOST_AUTO_TEST_CASE(small_rest)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("11536") / CLongNumber("113"), CLongNumber("102"));
+}
+
+BOOST_AUTO_TEST_CASE(very_small_rest)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("100001111") / CLongNumber("1111"), CLongNumber("90010"));
+}
+
 BOOST_AUTO_TEST_CASE(big_with_)
 {
 	BOOST_CHECK_EQUAL(CLongNumber("1201") / CLongNumber("11"), CLongNumber("109"));
+}
+
+
+BOOST_AUTO_TEST_CASE(very_big)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("42352152556") / CLongNumber("384716"), CLongNumber("110086"));
 }
 
 BOOST_AUTO_TEST_SUITE_END()
