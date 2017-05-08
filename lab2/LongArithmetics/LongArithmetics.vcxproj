@@ -154,8 +154,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FileParser.cpp" />
+    <ClCompile Include="FileWriter.cpp" />
     <ClCompile Include="LongNumber.cpp" />
+    <ClCompile Include="LongNumberExpression.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="StringUtils.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileParser.h" />
