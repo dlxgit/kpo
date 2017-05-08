@@ -17,7 +17,7 @@ public:
 	CLongNumber(const std::vector<int> & data);
 
 	std::vector<int> GetData() const;
-
+	std::string ToString() const;
 	CLongNumber operator+(const CLongNumber & right) const;
 	CLongNumber operator-(const CLongNumber & right) const;
 	CLongNumber operator*(const CLongNumber & right) const;

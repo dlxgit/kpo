@@ -51,6 +51,16 @@ std::vector<int> CLongNumber::GetData() const
 	return m_data;
 }
 
+std::string CLongNumber::ToString() const
+{
+	std::string res;
+	for (auto el : m_data)
+	{
+		res += boost::lexical_cast<std::string>(el);
+	}
+	return res;
+}
+
 CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 {
 	auto a = m_data;
