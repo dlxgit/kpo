@@ -3,6 +3,49 @@
 #include <algorithm>
 #include <sstream>
 
+CLongNumber::CLongNumber(const std::string & data)
+{
+	if (data.length() == 1 && data[0] == '0')
+	{
+		m_data.push_back(0);
+		return;
+	}
+
+	bool begin = true;
+	for (size_t i = 0; i < data.length(); ++i)
+	{
+		if (!isdigit(data[i]))
+		{
+			throw std::invalid_argument("incorrent symbol");
+		}
+		if (begin && data[i] == '0')
+		{
+			if (i == data.size() - 1)
+			{
+				m_data.push_back(boost::lexical_cast<int>(data[i]));
+			}
+		}
+		else
+		{
+			begin = false;
+			m_data.push_back(boost::lexical_cast<int>(data[i]));
+		}
+	}
+};
+
+CLongNumber::CLongNumber(const CLongNumber & other)
+	:m_data(other.m_data)
+{
+
+};
+
+CLongNumber::CLongNumber(const std::vector<int> & data)
+	:m_data(data)
+{
+
+};
+
+
 std::vector<int> CLongNumber::GetData() const
 {
 	return m_data;
@@ -18,13 +61,10 @@ CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 	int size_b = b.size();
 	std::reverse(b.begin(), b.end());
 
-	//std::vector<int> result(std::max(size_a, size_b) + 1);
 	std::vector<int> result;
-
 	int index = 0;
 	int rest = 0;
 
-	//result.erase(result.begin(), result.begin() + a.size() - 1);
 	result.insert(result.begin(), a.begin(), a.end());
 
 	for (; index < size_b; ++index)
@@ -56,14 +96,6 @@ CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 
 	int index = 0;
 	int rest = 0;
-
-
-	// 	int foo = 1;
-	// 	while (true)
-	// 	{
-	// 		int bar = foo;
-	// 		int foo = 3;
-	// 	}
 
 	for (; index < size_a || index < size_b; ++index)
 	{
@@ -118,15 +150,11 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 	}
 
 	std::vector<int> result;
-	//std::vector<int> result(size_a * size_b);
+
 	for (size_t i = 0; i < size_a * size_b; ++i)
 	{
 		result.push_back(0);
 	}
-// 	for (auto & el : result)
-// 	{
-// 		el = 0;
-// 	}
 
 	int index = 0;
 	int rest = 0;
@@ -138,18 +166,6 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 			AddNumber(result, i1 + i2, res);
 		}
 	}
-
-	// 	int foo = 1;
-	// 	while (true)
-	// 	{
-	// 		int bar = foo;
-	// 		int foo = 3;
-	// 	}
-
-// 	for (size_t i = 0; i < zero_count_a * zero_count_b; ++i)
-// 	{
-// 		result.insert(result.begin(), 0);
-// 	}
 
 	if (rest != 0)
 	{
@@ -171,13 +187,9 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 {
 	auto a = m_data;
 	int size_a = a.size();
-	//std::reverse(a.begin(), a.end());
 
 	auto b = right.GetData();
 	int size_b = b.size();
-	//std::reverse(b.begin(), b.end());
-
-
 	
 	if (right == CLongNumber("0"))
 	{
@@ -220,49 +232,18 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			for (size_t i = 0; i < 11; ++i)
 			{
 				std::string nStr = boost::lexical_cast<std::string>(i);
-
-
-				// 			if (!result.empty() && result[result.size() - 1] == 0)
-				// 			{
-				// 				firstN = CLongNumber(getFirstNVec(temp.m_data, right.m_data.size() + 1));
-				// 			}
-							//else {
-				if (count_size_div > size_b)
-				{
-
-				}
-
 				CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, res_copy_size + 1));
-// 				if()
-// 				if (last_div_zero_beginning_count >= 1)
-// 				{
-// 					firstN = CLongNumber(getFirstNVec(temp.m_data, right.m_data.size() - last_div_zero_beginning_count + 1));
-// 				}
-
-
-				//}
-	// 			if (firstN.m_data.size() > 1)
-	// 			{
-	// 				if (count_size_div > right.m_data.size())
-	// 				{
-	// 					
-	// 				}
-	// 			}
 				if (firstN < right)
 				{
 					++res_copy_size;
 					if (!result.empty())
 					{
-						//if (temp > right || temp == right)
-						{
-							result.push_back(0);
-						}
+						result.push_back(0);
 						if (firstN.m_data.size() >= right.m_data.size())
 						{
 							++count_size_div;
 						}
 						bad_result = true;
-						//last_div_zero_beginning_count = 0;
 						if (firstN.m_data.size() >= right.m_data.size())
 						{
 							last_div_zero_beginning_count = 0;
@@ -288,10 +269,6 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 				}
 
 				CLongNumber tmp_sub = CLongNumber(right * CLongNumber(nStr));
-				//auto vec_tmp_sub = tmp_sub.GetData();
-				//temp.size?
-				//fillVectorWithZeroTillSize(vec_tmp_sub, firstN.m_data.size());
-				//tmp_sub = CLongNumber(vec_tmp_sub);
 
 				if (tmp_sub > firstN)
 				{
@@ -302,29 +279,16 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 
 					auto temp_right = (CLongNumber(boost::lexical_cast<std::string>(i - 1)) * right).GetData();
 
-					/*
-					if (count_size_div == size_b + 1)
-					{
-						temp_right.insert(temp_right.begin(), 0);
-						--count_size_div; //?
-					}
-					*/
 					int size_result = (firstN - temp_right).m_data.size();
 					res_copy_size = size_result;
 					int count_size_div_additional = 0;
 					if (count_size_div == size_b + 1)
 					{
-						//temp_right.insert(temp_right.begin(), 0);
 						if (size_result != right.m_data.size())
 						{
 							count_size_div_additional = 1;
 						}
 						--count_size_div; //?
-					}
-					else
-					{
-						//fillVectorWithZeroTillSize(temp_right, temp.m_data.size());
-
 					}
 
 					bool isLastOperation = temp.m_data.size() <= firstN.m_data.size();
@@ -332,8 +296,6 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 					fillVectorWithZeroTillSize(temp_right, temp.m_data.size() - (firstN.m_data.size() - temp_right.size()));
 
 					CLongNumber res = temp - CLongNumber(temp_right);
-					//count_size_div = firstN.m_data.size() - result.size() + 1;
-					//last_div_zero_beginning_count = (size_result) - count_size_div_additional;//temp.m_data.size() - res.m_data.size();
 					last_div_zero_beginning_count = firstN.m_data.size() - size_result - count_size_div_additional;
 					temp = res;
 
@@ -346,7 +308,6 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 						
 						return result;
 					}
-					// 				rest.erase(rest.begin() + right.m_data.size(), rest.end());
 					break;
 				}
 			}
@@ -365,52 +326,6 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 		result.push_back(0);
 	}
 
-
-/*
-	while (true)
-	{
-		if (i > size_a - size_b)
-		{
-			return CLongNumber(result);
-		}
-
-		std::vector<int> current;
-
-		current.insert(current.begin(), temp.m_data.begin() + i, temp.m_data.begin() + i + size_b);
-		if (rest.m_data[0] == 0)
-		{
-
-		}
-		else
-		{
-			current.erase(current.begin(), current.begin() + rest.m_data.size());
-
-			current.insert(current.begin(), rest.m_data.begin(), rest.m_data.end());
-			current = (CLongNumber(current) + rest).m_data;
-		}
-
-		bool checked = false;
-		for (size_t i = 0; i < 11; ++i)
-		{
-			std::string nStr = boost::lexical_cast<std::string>(i);
-			
-			if (right * CLongNumber(nStr) > CLongNumber(current))
-			{
-				checked = true;
-				result.push_back(i - 1);
-				rest = temp - CLongNumber(boost::lexical_cast<std::string>(i - 1)) * right;
-				rest.erase(rest.begin() + right.m_data.size(), rest.end());
-				break;
-			}
-			
-		}
-
-		if (!checked)
-		{
-			//err?
-		}
-	}
-	*/
 	return CLongNumber(result);
 }
 
@@ -440,4 +355,99 @@ std::ostream & operator<<(std::ostream & os, const CLongNumber & longNumber)
 		os << el;
 	}
 	return os;
+}
+
+bool CLongNumber::operator!=(const CLongNumber & right) const
+{
+	return !(*this == right);
+};
+
+bool CLongNumber::operator>(const CLongNumber & right) const
+{
+	if (*this == right)
+	{
+		return false;
+	}
+
+	if (m_data.size() < right.m_data.size())
+	{
+		return false;
+	}
+	else if (m_data.size() > right.m_data.size())
+	{
+		return true;
+	}
+
+	for (size_t i = 0; i < m_data.size(); ++i)
+	{
+		if (this->m_data[i] == right.m_data[i])
+		{
+
+		}
+		else if (this->m_data[i] > right.m_data[i])
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+	return false;
+};
+
+bool CLongNumber::operator<(const CLongNumber & right) const
+{
+	if (*this == right || (*this > right))
+	{
+		return false;
+	}
+	return true;
+};
+
+void CLongNumber::AddNumber(std::vector<int> & vec, size_t position, int value)
+{
+	if (position >= vec.size())
+	{
+		vec.push_back(value);
+		return;
+	}
+
+	int rest = 0;
+	for (size_t i = position; i < vec.size(); ++i)
+	{
+		int result = vec[i] + value;
+		rest = result / 10;
+		vec[i] = result % 10;
+		value = rest;
+		if (rest == 0)
+		{
+			break;
+		}
+	}
+
+	while (rest != 0)
+	{
+		vec.push_back(rest);
+		rest /= 10;
+	}
+}
+
+void CLongNumber::fillVectorWithZeroTillSize(std::vector<int> & vec, size_t size)
+{
+	while (vec.size() < size)
+	{
+		vec.push_back(0);
+	}
+}
+
+std::vector<int> CLongNumber::getFirstNVec(const std::vector<int> & vec, size_t n)
+{
+	if (n > vec.size())
+	{
+		throw std::logic_error("finish");
+	}
+
+	return std::vector<int>(vec.begin(), vec.begin() + n);
 }
