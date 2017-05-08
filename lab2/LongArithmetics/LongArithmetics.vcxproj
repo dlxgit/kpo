@@ -159,9 +159,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FileParser.h" />
+    <ClInclude Include="FileWriter.h" />
     <ClInclude Include="LongNumber.h" />
     <ClInclude Include="LongNumberExpression.h" />
-    <ClInclude Include="ResultStringCalculator.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="StringUtils.h" />
   </ItemGroup>

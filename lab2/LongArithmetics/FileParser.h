@@ -7,33 +7,31 @@
 
 class CFileParser
 {
-	std::vector<CLongNumber> ReadShapes()
+public:
+
+	CFileParser(const std::string & fileName = "input.txt")
+		:fileName(fileName)
 	{
-		std::vector<CLongNumber> result;
+
+	}
+
+	static std::vector<std::string> ReadLines()
+	{
+		std::cout << "Loading expressions from file..." << std::endl;
+		std::vector<std::string> result;
 
 		std::ifstream inputFile("input.txt");
-
 		if (!inputFile.is_open())
 		{
 			throw std::ios_base::failure("Error: inputFile is not found");
 		}
-		std::cout << "Loading shapes from file..." << std::endl;
 
 		std::string command;
 		while (std::getline(inputFile, command))
-		{
-			std::vector<std::string> commandParts;
-			boost::split(commandParts, command, boost::is_any_of(" +-*/"));
-
-			
-			std::for_each(commandParts.begin(), commandParts.end(), [](const std::string & str)
-			{
-				
-			});
-
-			result.emplace_back(new CLongNumber());
+		{			
+			result.push_back(command);
 		}
-
+		std::cout << "Loading has successfully finished" << std::endl;
 		return result;
 	};
 
@@ -47,6 +45,5 @@ private:
 		}
 	};
 
-	static std::string Calculate();
-
-}
+	std::string fileName;
+};

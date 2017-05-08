@@ -34,7 +34,7 @@ public:
 		
 		Validate(commandParts);
 
-		CLongNumberExpression(CLongNumber(commandParts[0]), CLongNumber(commandParts[2]), commandParts[1][0]);
+		*this = CLongNumberExpression(CLongNumber(commandParts[0]), CLongNumber(commandParts[2]), commandParts[1][0]);
 	};
 
 	CLongNumberExpression(const CLongNumber & left, const CLongNumber & right, char operationSymbol)
@@ -64,36 +64,13 @@ public:
 			exprResult = left / right;
 			break;
 		}
+		return exprResult;
 	};
 
 	std::string ToString() const
 	{
-		std::string result = left.ToString() + ' ' + operationSymbol + ' ' + '=' + right.ToString();
+		return left.ToString() + operationSymbol + right.ToString();
 	};
-
-	static std::string CalculateResultString(const CLongNumber & leftOperand, const CLongNumber & rightOperand, char operationSymbol)
-	{
-		CLongNumber exprResult;
-		switch (operationSymbol)
-		{
-		case '+':
-			exprResult = leftOperand + rightOperand;
-			break;
-		case '-':
-			exprResult = leftOperand - rightOperand;
-			break;
-		case '*':
-			exprResult = leftOperand * rightOperand;
-			break;
-		case '/':
-			exprResult = leftOperand / rightOperand;
-			break;
-		default:
-			throw std::invalid_argument("unexpected operation symbol <" + operationSymbol + '>');
-		}
-		std::string result = leftOperand.ToString() + ' ' + operationSymbol + ' ' + '=' + exprResult.ToString();
-	};
-
 
 private:
 
