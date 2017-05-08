@@ -39,6 +39,11 @@ CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 
 CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 {
+	if (*this < right)
+	{
+		return right - *this;
+	}
+
 	auto a = m_data;
 	int size_a = a.size();
 	std::reverse(a.begin(), a.end());
