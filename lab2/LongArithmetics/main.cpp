@@ -7,13 +7,6 @@
 
 int main()
 {
-	CLongNumber("11") / CLongNumber("1");
-	//CLongNumber("222") / CLongNumber("2");
-
-	//CLongNumber a = CLongNumber("42352152556") / CLongNumber("384716");
-	//std::cout << a;
-	CLongNumberExpression("3+35");
-
 	std::vector<std::string> strings;
 	try
 	{

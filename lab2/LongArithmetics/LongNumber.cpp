@@ -222,7 +222,6 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 	std::vector<int> result;
 
 	CLongNumber temp(*this);
-	//CLongNumber rest("0");
 
 	int current_div_length = size_b;
 	while (true)
@@ -236,9 +235,8 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			break;
 		}
 
-		
 		CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, current_div_length));
-		
+
 		if (firstN < b)
 		{
 			++current_div_length;
@@ -257,10 +255,10 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			temp.m_data.erase(temp.m_data.begin(), temp.m_data.begin() + firstN.m_data.size());
 			current_div_length = size_b;
 		}
-		
+
 		CLongNumber temp_sub = CLongNumber(right);
 		bool isFound = false;
-		for (int i = 1; i < 11; ++i) 
+		for (int i = 1; i < 11; ++i)
 		{
 			if (temp_sub + right > firstN || temp_sub == firstN)
 			{
@@ -273,7 +271,7 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 				temp_sub = temp_sub + right;
 			}
 		}
-		
+
 		//assert
 		if (!isFound)
 		{
@@ -281,13 +279,14 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 		}
 
 		CLongNumber temp_result = firstN - temp_sub;
-		if (temp_result.m_data.size() == size_b)
-		{
-			++current_div_length;
-		}
+
 
 		if (temp_result != CLongNumber("0"))
 		{
+			if (temp_result.m_data.size() == size_b)
+			{
+				++current_div_length;
+			}
 			if (!temp.m_data.empty())
 			{
 				temp.m_data.insert(temp.m_data.begin(), temp_result.m_data.begin(), temp_result.m_data.end());
@@ -297,137 +296,16 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 		{
 			temp_result.m_data.clear();
 		}
-		//else
-		//if ()
+
+		int condition = size_b - temp_result.m_data.size() - 1;
+		for (int j = 0; j < condition && j < temp.m_data.size(); ++j)
 		{
-			//if(temp.m_data.size())
-			int condition = size_b - temp_result.m_data.size() - 1;
-			for (int j = 0; j < condition && j < temp.m_data.size(); ++j)
-			//for (int j = 0; j < size_b - 1 && j < temp.m_data.size(); ++j)
-			{
-				if (j != temp.m_data.size() - 1)
-				{
-					result.push_back(0);
-				}
-			}
-		}	
-	}
-
-
-	/*
-	int count_miss = 0;
-	int count_size_div = size_b;
-	bool begin = true;
-
-	int last_div_zero_beginning_count = 0;
-	int res_copy_size = 0;
-	try
-	{
-		//
-		while (temp.m_data.size() >= size_b - count_miss || begin)
-		{
-			begin = false;
-
-			bool checked = false;
-			bool bad_result = false;
-			for (size_t i = 0; i < 11; ++i)
-			{
-				std::string nStr = boost::lexical_cast<std::string>(i);
-				CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, res_copy_size + 1));
-				if (firstN < right)
-				{
-					++res_copy_size;
-					if (!result.empty())
-					{
-						result.push_back(0);
-						if (firstN.m_data.size() >= right.m_data.size())
-						{
-							++count_size_div;
-						}
-						bad_result = true;
-						if (firstN.m_data.size() >= right.m_data.size())
-						{
-							last_div_zero_beginning_count = 0;
-						}
-						else
-						{
-							last_div_zero_beginning_count--;
-						}
-
-						break;
-					}
-					else
-					{
-						++count_miss;
-						if (firstN.m_data.size() >= right.m_data.size())
-						{
-							++count_size_div;
-						}
-						bad_result = true;
-						last_div_zero_beginning_count = 0;
-						break;
-					}
-				}
-
-				CLongNumber tmp_sub = CLongNumber(right * CLongNumber(nStr));
-
-				if (tmp_sub > firstN)
-				{
-					last_div_zero_beginning_count = 1;
-
-					checked = true;
-					result.push_back(i - 1);
-
-					auto temp_right = (CLongNumber(boost::lexical_cast<std::string>(i - 1)) * right).GetData();
-
-					int size_result = (firstN - temp_right).m_data.size();
-					res_copy_size = size_result;
-					int count_size_div_additional = 0;
-					if (count_size_div == size_b + 1)
-					{
-						if (size_result != right.m_data.size())
-						{
-							count_size_div_additional = 1;
-						}
-						--count_size_div; //?
-					}
-
-					bool isLastOperation = temp.m_data.size() <= firstN.m_data.size();
-
-					fillVectorWithZeroTillSize(temp_right, temp.m_data.size() - (firstN.m_data.size() - temp_right.size()));
-
-					CLongNumber res = temp - CLongNumber(temp_right);
-					last_div_zero_beginning_count = firstN.m_data.size() - size_result - count_size_div_additional;
-					temp = res;
-
-					if (temp < right)
-					{
-						if (temp != CLongNumber("0") && !isLastOperation)
-						{
-							result.push_back(0);
-						}
-						
-						return result;
-					}
-					break;
-				}
-			}
-			if (bad_result)
-			{
-				continue;
-			}
-			if (!checked)
+			if (j != temp.m_data.size() - 1)
 			{
 				result.push_back(0);
 			}
 		}
 	}
-	catch (std::logic_error)
-	{
-		result.push_back(0);
-	}
-	*/
-
 	return CLongNumber(result);
 }
 
