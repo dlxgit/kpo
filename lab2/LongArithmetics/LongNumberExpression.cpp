@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "LongNumberExpression.h"
 
 CLongNumberExpression::CLongNumberExpression(const std::string & str)

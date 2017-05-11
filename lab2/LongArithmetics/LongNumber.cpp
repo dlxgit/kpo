@@ -222,8 +222,99 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 	std::vector<int> result;
 
 	CLongNumber temp(*this);
-	CLongNumber rest("0");
+	//CLongNumber rest("0");
 
+	int current_div_length = size_b;
+	while (true)
+	{
+		if (temp.m_data.size() < size_b)
+		{
+			if (!temp.m_data.empty())
+			{
+				result.push_back(0);
+			}
+			break;
+		}
+
+		
+		CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, current_div_length));
+		
+		if (firstN < b)
+		{
+			++current_div_length;
+			if (!result.empty())
+			{
+				result.push_back(0);
+			}
+			if (temp == firstN)
+			{
+				break;
+			}
+			continue;
+		}
+		else
+		{
+			temp.m_data.erase(temp.m_data.begin(), temp.m_data.begin() + firstN.m_data.size());
+			current_div_length = size_b;
+		}
+		
+		CLongNumber temp_sub = CLongNumber(right);
+		bool isFound = false;
+		for (int i = 1; i < 11; ++i) 
+		{
+			if (temp_sub + right > firstN || temp_sub == firstN)
+			{
+				result.push_back(i);
+				isFound = true;
+				break;
+			}
+			else
+			{
+				temp_sub = temp_sub + right;
+			}
+		}
+		
+		//assert
+		if (!isFound)
+		{
+			throw std::logic_error("out of mul");
+		}
+
+		CLongNumber temp_result = firstN - temp_sub;
+		if (temp_result.m_data.size() == size_b)
+		{
+			++current_div_length;
+		}
+
+		if (temp_result != CLongNumber("0"))
+		{
+			if (!temp.m_data.empty())
+			{
+				temp.m_data.insert(temp.m_data.begin(), temp_result.m_data.begin(), temp_result.m_data.end());
+			}
+		}
+		else
+		{
+			temp_result.m_data.clear();
+		}
+		//else
+		//if ()
+		{
+			//if(temp.m_data.size())
+			int condition = size_b - temp_result.m_data.size() - 1;
+			for (int j = 0; j < condition && j < temp.m_data.size(); ++j)
+			//for (int j = 0; j < size_b - 1 && j < temp.m_data.size(); ++j)
+			{
+				if (j != temp.m_data.size() - 1)
+				{
+					result.push_back(0);
+				}
+			}
+		}	
+	}
+
+
+	/*
 	int count_miss = 0;
 	int count_size_div = size_b;
 	bool begin = true;
@@ -335,6 +426,7 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 	{
 		result.push_back(0);
 	}
+	*/
 
 	return CLongNumber(result);
 }
@@ -456,7 +548,8 @@ std::vector<int> CLongNumber::getFirstNVec(const std::vector<int> & vec, size_t 
 {
 	if (n > vec.size())
 	{
-		throw std::logic_error("finish");
+		//throw std::logic_error("finish");
+		return vec;
 	}
 
 	return std::vector<int>(vec.begin(), vec.begin() + n);

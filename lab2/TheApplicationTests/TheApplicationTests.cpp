@@ -219,6 +219,26 @@ BOOST_AUTO_TEST_CASE(zero_by_zero)
 	BOOST_REQUIRE_THROW(CLongNumber("0") / CLongNumber("0"), std::invalid_argument);
 }
 
+BOOST_AUTO_TEST_CASE(small_size_by_one)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("10") / CLongNumber("1"), CLongNumber("10"));
+}
+
+BOOST_AUTO_TEST_CASE(small_size_by_one2)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("11") / CLongNumber("1"), CLongNumber("11"));
+}
+
+BOOST_AUTO_TEST_CASE(small_size_by_eleven)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("1111") / CLongNumber("11"), CLongNumber("101"));
+}
+
+BOOST_AUTO_TEST_CASE(small_size_by_eleven2)
+{
+	BOOST_CHECK_EQUAL(CLongNumber("11111") / CLongNumber("11"), CLongNumber("1010"));
+}
+
 BOOST_AUTO_TEST_CASE(small_size_2_by_small_size_1)
 {
 	BOOST_CHECK_EQUAL(CLongNumber("10") / CLongNumber("2"), CLongNumber("5"));
