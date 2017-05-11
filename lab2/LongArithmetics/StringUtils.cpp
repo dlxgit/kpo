@@ -1,6 +1,6 @@
 #pragma once
 #include "StringUtils.h"
-
+#include <set>
 
 std::string CStringUtils::PutSeparatorsIfNeeded(const std::string & str, const std::string & separator)
 {

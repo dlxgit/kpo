@@ -7,7 +7,6 @@ class CCircle : public IShape
 {
 public:
 	CCircle(Point & point, double radius);
-	CCircle(const std::vector<std::string> & inputParts);
 
 	Point GetCenter() const;
 	double GetRadius() const;

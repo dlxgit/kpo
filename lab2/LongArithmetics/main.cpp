@@ -7,7 +7,7 @@
 
 int main()
 {
-	CLongNumber("0000");
+	CLongNumber("222") / CLongNumber("2");
 
 	//CLongNumber a = CLongNumber("42352152556") / CLongNumber("384716");
 	//std::cout << a;

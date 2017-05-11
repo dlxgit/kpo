@@ -3,11 +3,11 @@
 #include <array>
 #include "CLineSegment.h"
 
+
 class CTriangle : public IShape
 {
 public:
 	CTriangle(const Point & firstPoint, const Point & secondPoint, const Point & thirdPoint);
-	CTriangle(const std::vector<std::string> & inputParts);
 
 	std::array<Point, 3> GetPoints() const;
 	std::string ToString() const override;

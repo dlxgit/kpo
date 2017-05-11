@@ -7,20 +7,6 @@ CRectangle::CRectangle(const Point & position, double width, double height)
 	m_height = height;
 }
 
-CRectangle::CRectangle(const std::vector<std::string> & inputParts)
-{
-	double x = std::stod(inputParts[1]);
-	double y = std::stod(inputParts[2]);
-	double width = std::stod(inputParts[3]);
-	double height = std::stod(inputParts[4]);
-
-	if (width <= 0 || height <= 0)
-	{
-		throw std::invalid_argument("Error: width and height of rectangle must be positive");
-	}
-	*this = CRectangle(Point(x, y), width, height);
-}
-
 std::string CRectangle::ToString() const
 {
 	std::stringstream ss;

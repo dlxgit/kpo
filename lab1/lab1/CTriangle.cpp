@@ -8,14 +8,6 @@ CTriangle::CTriangle(const Point & firstPoint, const Point & secondPoint, const 
 	m_thirdPoint = thirdPoint;
 }
 
-CTriangle::CTriangle(const std::vector<std::string> & inputParts)
-{
-	Point p1 = Point(std::stod(inputParts[1]), std::stod(inputParts[2]));
-	Point p2 = Point(std::stod(inputParts[3]), std::stod(inputParts[4]));
-	Point p3 = Point(std::stod(inputParts[5]), std::stod(inputParts[6]));
-	*this = CTriangle(p1, p2, p3);
-}
-
 std::string CTriangle::ToString() const
 {
 	std::pair<double, double> point1 = m_firstPoint;

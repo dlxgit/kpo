@@ -7,14 +7,6 @@ CCircle::CCircle(Point & point, const double radius)
 	m_radius = radius;
 }
 
-CCircle::CCircle(const std::vector<std::string> & inputParts)
-{
-	Point pos = Point(std::stod(inputParts[1]), std::stod(inputParts[2]));
-	double radius = std::stod(inputParts[3]);
-	*this = CCircle(pos, radius);
-}
-
-
 std::string CCircle::ToString() const
 {
 	std::stringstream ss;
