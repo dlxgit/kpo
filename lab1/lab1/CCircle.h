@@ -12,8 +12,8 @@ public:
 	double GetRadius() const;
 
 	std::string ToString() const override;
-	double GetArea() const override;
-	double GetPerimeter() const override;
+	CLongNumber GetArea() const override;
+	CLongNumber GetPerimeter() const override;
 
 private:
 	Point m_center;

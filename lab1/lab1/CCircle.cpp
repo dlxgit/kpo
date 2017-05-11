@@ -1,7 +1,7 @@
 #include "CCircle.h"
 
 
-CCircle::CCircle(Point & point, const double radius)
+CCircle::CCircle(Point & point, double radius)
 {
 	m_center = point;
 	m_radius = radius;
@@ -19,14 +19,14 @@ std::string CCircle::ToString() const
 	return ss.str();
 }
 
-double CCircle::GetArea() const
+CLongNumber CCircle::GetArea() const
 {
-	return M_PI * GetRadius() * GetRadius();
+	return CLongNumber("22") * CLongNumber(boost::lexical_cast<std::string>(m_radius * m_radius)) / CLongNumber("7");
 }
 
-double CCircle::GetPerimeter() const
+CLongNumber CCircle::GetPerimeter() const
 {
-	return 2 * M_PI * GetRadius();
+	return CLongNumber("44") * CLongNumber(boost::lexical_cast<std::string>(m_radius)) / CLongNumber("7");
 }
 
 Point CCircle::GetCenter() const

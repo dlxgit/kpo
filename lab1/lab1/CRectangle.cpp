@@ -21,14 +21,14 @@ std::string CRectangle::ToString() const
 	return ss.str();
 }
 
-double CRectangle::GetArea() const
+CLongNumber CRectangle::GetArea() const
 {
-	return m_width * m_height;
+	return CLongNumber(boost::lexical_cast<std::string>(m_width)) * CLongNumber(boost::lexical_cast<std::string>(m_height));
 }
 
-double CRectangle::GetPerimeter() const
+CLongNumber CRectangle::GetPerimeter() const
 {
-	return (m_width + m_height) * 2;
+	return CLongNumber(boost::lexical_cast<std::string>(m_width + m_height)) * CLongNumber("2");
 }
 
 Point CRectangle::GetPosition() const
