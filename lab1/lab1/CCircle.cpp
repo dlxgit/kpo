@@ -38,3 +38,8 @@ double CCircle::GetRadius() const
 {
 	return m_radius;
 }
+
+void CVisitableShape::Accept(IShapeVisitor & visitor)
+{
+	//visitor.Visit(*this);
+}

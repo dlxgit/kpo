@@ -76,11 +76,11 @@ std::string CLongNumber::ToString() const
 CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 {
 	auto a = m_data;
-	int size_a = a.size();
+	int sizeA = a.size();
 	std::reverse(a.begin(), a.end());
 
 	auto b = right.GetData();
-	int size_b = b.size();
+	int sizeB = b.size();
 	std::reverse(b.begin(), b.end());
 
 	std::vector<int> result;
@@ -89,7 +89,7 @@ CLongNumber CLongNumber::operator+(const CLongNumber & right) const
 
 	result.insert(result.begin(), a.begin(), a.end());
 
-	for (; index < size_b; ++index)
+	for (; index < sizeB; ++index)
 	{
 		AddNumber(result, index, b[index]);
 	}
@@ -107,11 +107,11 @@ CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 	}
 
 	auto a = m_data;
-	int size_a = a.size();
+	int sizeA = a.size();
 	std::reverse(a.begin(), a.end());
 
 	auto b = right.GetData();
-	int size_b = b.size();
+	int sizeB = b.size();
 	std::reverse(b.begin(), b.end());
 
 	std::vector<int> result;
@@ -119,10 +119,10 @@ CLongNumber CLongNumber::operator-(const CLongNumber & right) const
 	int index = 0;
 	int rest = 0;
 
-	for (; index < size_a || index < size_b; ++index)
+	for (; index < sizeA || index < sizeB; ++index)
 	{
-		int firstOperand = index >= size_a ? 0 : a[index];
-		int secondOperand = index >= size_b ? 0 : b[index];
+		int firstOperand = index >= sizeA ? 0 : a[index];
+		int secondOperand = index >= sizeB ? 0 : b[index];
 
 		int resValue = firstOperand - secondOperand - rest;
 		if (resValue < 0)
@@ -160,13 +160,13 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 	std::reverse(b.begin(), b.end());
 
 
-	int zero_count_a = 0;
-	for (; zero_count_a < size_a && a[zero_count_a] == 0; ++zero_count_a){};
+	int zeroCountA = 0;
+	for (; zeroCountA < size_a && a[zeroCountA] == 0; ++zeroCountA){};
 
-	int zero_count_b = 0;
-	for (; zero_count_b < size_b && b[zero_count_b] == 0; ++zero_count_b){};
+	int zeroCountB = 0;
+	for (; zeroCountB < size_b && b[zeroCountB] == 0; ++zeroCountB){};
 	
-	if (zero_count_a == a.size() || zero_count_b == b.size())
+	if (zeroCountA == a.size() || zeroCountB == b.size())
 	{
 		return CLongNumber("0");
 	}
@@ -180,9 +180,9 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 
 	int index = 0;
 	int rest = 0;
-	for (int i1 = zero_count_a; i1 < size_a; ++i1)
+	for (int i1 = zeroCountA; i1 < size_a; ++i1)
 	{
-		for (int i2 = zero_count_b; i2 < size_b; ++i2)
+		for (int i2 = zeroCountB; i2 < size_b; ++i2)
 		{
 			int res = a[i1] * b[i2] + rest;
 			AddNumber(result, i1 + i2, res);
@@ -208,10 +208,10 @@ CLongNumber CLongNumber::operator*(const CLongNumber & right) const
 CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 {
 	auto a = m_data;
-	int size_a = a.size();
+	int sizeA = a.size();
 
 	auto b = right.GetData();
-	int size_b = b.size();
+	int sizeB = b.size();
 	
 	if (right == CLongNumber("0"))
 	{
@@ -235,10 +235,10 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 
 	CLongNumber temp(*this);
 
-	int current_div_length = size_b;
+	int currentDivLength = sizeB;
 	while (true)
 	{
-		if (temp.m_data.size() < size_b)
+		if (temp.m_data.size() < sizeB)
 		{
 			if (!temp.m_data.empty())
 			{
@@ -247,11 +247,11 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			break;
 		}
 
-		CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, current_div_length));
+		CLongNumber firstN = CLongNumber(getFirstNVec(temp.m_data, currentDivLength));
 
 		if (firstN < b)
 		{
-			++current_div_length;
+			++currentDivLength;
 			if (!result.empty())
 			{
 				result.push_back(0);
@@ -265,14 +265,14 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 		else
 		{
 			temp.m_data.erase(temp.m_data.begin(), temp.m_data.begin() + firstN.m_data.size());
-			current_div_length = size_b;
+			currentDivLength = sizeB;
 		}
 
-		CLongNumber temp_sub = CLongNumber(right);
+		CLongNumber curSub = CLongNumber(right);
 		bool isFound = false;
 		for (int i = 1; i < 11; ++i)
 		{
-			if (temp_sub + right > firstN || temp_sub == firstN)
+			if (curSub + right > firstN || curSub == firstN)
 			{
 				result.push_back(i);
 				isFound = true;
@@ -280,7 +280,7 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			}
 			else
 			{
-				temp_sub = temp_sub + right;
+				curSub = curSub + right;
 			}
 		}
 
@@ -290,26 +290,26 @@ CLongNumber CLongNumber::operator/(const CLongNumber & right) const
 			throw std::logic_error("out of mul");
 		}
 
-		CLongNumber temp_result = firstN - temp_sub;
+		CLongNumber curResult = firstN - curSub;
 
 
-		if (temp_result != CLongNumber("0"))
+		if (curResult != CLongNumber("0"))
 		{
-			if (temp_result.m_data.size() == size_b)
+			if (curResult.m_data.size() == sizeB)
 			{
-				++current_div_length;
+				++currentDivLength;
 			}
 			if (!temp.m_data.empty())
 			{
-				temp.m_data.insert(temp.m_data.begin(), temp_result.m_data.begin(), temp_result.m_data.end());
+				temp.m_data.insert(temp.m_data.begin(), curResult.m_data.begin(), curResult.m_data.end());
 			}
 		}
 		else
 		{
-			temp_result.m_data.clear();
+			curResult.m_data.clear();
 		}
 
-		int condition = size_b - temp_result.m_data.size() - 1;
+		int condition = sizeB - curResult.m_data.size() - 1;
 		for (int j = 0; j < condition && j < temp.m_data.size(); ++j)
 		{
 			if (j != temp.m_data.size() - 1)
@@ -438,7 +438,6 @@ std::vector<int> CLongNumber::getFirstNVec(const std::vector<int> & vec, size_t 
 {
 	if (n > vec.size())
 	{
-		//throw std::logic_error("finish");
 		return vec;
 	}
 

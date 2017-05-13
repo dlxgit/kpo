@@ -1,7 +1,7 @@
 #pragma once
-#include "IShape.h"
+#include "VisitableShape.h"
 
-class CRectangle : public IShape
+class CRectangle : public CVisitableShape
 {
 public:
 	CRectangle(const Point & position, double width, double height);
@@ -13,6 +13,8 @@ public:
 	std::string ToString() const override;
 	CLongNumber GetArea() const override;
 	CLongNumber GetPerimeter() const override;
+
+	void Accept(IShapeVisitor & visitor) override;
 private:
 	Point m_position;
 	double m_width;

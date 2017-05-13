@@ -1,9 +1,9 @@
 #pragma once
-#include "IShape.h"
+#include "VisitableShape.h"
 #define _USE_MATH_DEFINES 
 #include <math.h>
 
-class CCircle : public IShape
+class CCircle : public CVisitableShape
 {
 public:
 	CCircle(Point & point, double radius);
@@ -14,6 +14,8 @@ public:
 	std::string ToString() const override;
 	CLongNumber GetArea() const override;
 	CLongNumber GetPerimeter() const override;
+
+	void Accept(IShapeVisitor & visitor) override;
 
 private:
 	Point m_center;

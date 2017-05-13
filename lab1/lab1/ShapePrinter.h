@@ -1,8 +1,11 @@
 #pragma once
 #include "ShapeVisitor.h"
 
-class CShapePrinter: public CShapeVisitor
+
+class CShapePrinter: public IShapeVisitor
 {
 public:
-	void Visit(IShape & shape) const override;
+	void Visit(CRectangle & shape) override;
+	void Visit(CTriangle & shape) override;
+	void Visit(CCircle & shape) override;
 };
