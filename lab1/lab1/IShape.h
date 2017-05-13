@@ -6,7 +6,7 @@
 #include "LongNumber.h"
 
 
-typedef std::pair<int, int> Point;
+typedef std::pair<long long, long long> Point;
 
 class CTriangle;
 class CRectangle;

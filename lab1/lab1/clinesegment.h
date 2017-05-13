@@ -8,7 +8,7 @@ public:
 	CLineSegment(const Point & first, const Point & second);
 
 	std::pair<Point, Point> GetPoints() const;
-	double GetLength() const;
+	long long  GetLength() const;
 
 private:
 	Point m_firstPoint;

@@ -8,9 +8,6 @@
 #include "CCircle.h"
 
 
-//void VisitShape(IShape & shape)
-
-
 void CShapePrinter::Visit(CRectangle & shape)
 {
 	std::ofstream outputFile("output.txt", std::fstream::app);

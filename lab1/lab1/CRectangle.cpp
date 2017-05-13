@@ -1,6 +1,6 @@
 #include "CRectangle.h"
 
-CRectangle::CRectangle(const Point & position, double width, double height)
+CRectangle::CRectangle(const Point & position, long long width, long long height)
 {
 	m_position = position;
 	m_width = width;
@@ -10,7 +10,7 @@ CRectangle::CRectangle(const Point & position, double width, double height)
 std::string CRectangle::ToString() const
 {
 	std::stringstream ss;
-	std::pair<double, double> position = m_position;
+	std::pair<long long, long long> position = m_position;
 	ss << std::fixed << std::setprecision(2) << "rectangle <" <<
 		position.first << ", " <<
 		position.second << "> " << "width = " <<
@@ -36,12 +36,12 @@ Point CRectangle::GetPosition() const
 	return m_position;
 }
 
-double CRectangle::GetWidth() const
+long long CRectangle::GetWidth() const
 {
 	return m_width;
 }
 
-double CRectangle::GetHeight() const
+long long CRectangle::GetHeight() const
 {
 	return m_height;
 }

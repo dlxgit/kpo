@@ -20,7 +20,7 @@ CCircleFactory * CCircleFactory::GetInstance()
 
 std::unique_ptr<IShape> CCircleFactory::CreateShape(const std::vector<std::string> & inputParts) const
 {
-	Point pos = Point(std::stod(inputParts[1]), std::stod(inputParts[2]));
-	double radius = std::stod(inputParts[3]);
+	Point pos = Point(std::stol(inputParts[1]), std::stol(inputParts[2]));
+	long long radius = std::stol(inputParts[3]);
 	return std::make_unique<CCircle>(pos, radius);
 }

@@ -10,9 +10,9 @@ CTriangle::CTriangle(const Point & firstPoint, const Point & secondPoint, const 
 
 std::string CTriangle::ToString() const
 {
-	std::pair<int, int> point1 = m_firstPoint;
-	std::pair<int, int> point2 = m_secondPoint;
-	std::pair<int, int> point3 = m_thirdPoint;
+	std::pair<long, long> point1 = m_firstPoint;
+	std::pair<long, long> point2 = m_secondPoint;
+	std::pair<long, long> point3 = m_thirdPoint;
 
 	std::stringstream ss;
 	ss << std::fixed << std::setprecision(2) <<

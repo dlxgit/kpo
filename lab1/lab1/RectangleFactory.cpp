@@ -19,10 +19,10 @@ CRectangleFactory * CRectangleFactory::GetInstance()
 
 std::unique_ptr<IShape> CRectangleFactory::CreateShape(const std::vector<std::string> & inputParts) const
 {
-	double x = std::stod(inputParts[1]);
-	double y = std::stod(inputParts[2]);
-	double width = std::stod(inputParts[3]);
-	double height = std::stod(inputParts[4]);
+	long long x = std::stoll(inputParts[1]);
+	long long y = std::stoll(inputParts[2]);
+	long long width = std::stoll(inputParts[3]);
+	long long height = std::stoll(inputParts[4]);
 
 	if (width <= 0 || height <= 0)
 	{

@@ -13,7 +13,7 @@ std::pair<Point, Point> CLineSegment::GetPoints() const
 	return std::make_pair(m_firstPoint, m_secondPoint);
 }
 
-double CLineSegment::GetLength() const
+long long CLineSegment::GetLength() const
 {
 	auto firstPointPos = GetPoints().first;
 	auto secondPointPos = GetPoints().second;

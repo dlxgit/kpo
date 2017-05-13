@@ -6,10 +6,10 @@
 class CCircle : public IShape
 {
 public:
-	CCircle(Point & point, double radius);
+	CCircle(Point & point, long long radius);
 
 	Point GetCenter() const;
-	double GetRadius() const;
+	long long GetRadius() const;
 
 	std::string ToString() const override;
 	CLongNumber GetArea() const override;
@@ -19,5 +19,5 @@ public:
 
 private:
 	Point m_center;
-	double m_radius;
+	long long m_radius;
 };

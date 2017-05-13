@@ -4,11 +4,11 @@
 class CRectangle : public IShape
 {
 public:
-	CRectangle(const Point & position, double width, double height);
+	CRectangle(const Point & position, long long width, long long height);
 
 	Point GetPosition() const;
-	double GetWidth() const;
-	double GetHeight() const;
+	long long GetWidth() const;
+	long long GetHeight() const;
 
 	std::string ToString() const override;
 	CLongNumber GetArea() const override;
@@ -17,6 +17,6 @@ public:
 	void Accept(IShapeVisitor & visitor) override;
 private:
 	Point m_position;
-	double m_width;
-	double m_height;
+	long long m_width;
+	long long m_height;
 };

@@ -1,7 +1,7 @@
 #include "CCircle.h"
 
 
-CCircle::CCircle(Point & point, double radius)
+CCircle::CCircle(Point & point, long long radius)
 {
 	m_center = point;
 	m_radius = radius;
@@ -34,7 +34,7 @@ Point CCircle::GetCenter() const
 	return m_center;
 }
 
-double CCircle::GetRadius() const
+long long CCircle::GetRadius() const
 {
 	return m_radius;
 }
