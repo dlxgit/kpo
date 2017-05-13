@@ -5,9 +5,36 @@
 #include <vector>
 #include "LongNumber.h"
 
+
 typedef std::pair<int, int> Point;
 
-class IShape
+class CTriangle;
+class CRectangle;
+class CCircle;
+
+class IShapeVisitor
+{
+public:
+	virtual void Visit(CTriangle & shape) = 0;
+	virtual void Visit(CRectangle & shape) = 0;
+	virtual void Visit(CCircle & shape) = 0;
+};
+
+class CShapePrinter : public IShapeVisitor
+{
+public:
+	void Visit(CRectangle & shape) override;
+	void Visit(CTriangle & shape) override;
+	void Visit(CCircle & shape) override;
+};
+
+class Element
+{
+public:
+	virtual void Accept(IShapeVisitor & visitor) = 0;
+};
+
+class IShape : public Element
 {
 public:
 	IShape() = default;

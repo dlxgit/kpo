@@ -1,24 +1,30 @@
-#include "ShapePrinter.h"
+//#include "ShapePrinter.h"
+
 #include <iostream>
 #include <fstream>
+#include "IShape.h"
+#include "CRectangle.h"
+#include "CTriangle.h"
+#include "CCircle.h"
 
-void VisitShape(IShape & shape)
+
+//void VisitShape(IShape & shape)
+
+
+void CShapePrinter::Visit(CRectangle & shape)
 {
 	std::ofstream outputFile("output.txt", std::fstream::app);
 	outputFile << shape.ToString() << std::endl;
 }
 
-void CShapePrinter::Visit(CRectangle & shape)
-{
-	VisitShape(shape);
-}
-
 void CShapePrinter::Visit(CTriangle & shape)
 {
-	VisitShape(shape);
+	std::ofstream outputFile("output.txt", std::fstream::app);
+	outputFile << shape.ToString() << std::endl;
 }
 
 void CShapePrinter::Visit(CCircle & shape)
 {
-	VisitShape(shape);
+	std::ofstream outputFile("output.txt", std::fstream::app);
+	outputFile << shape.ToString() << std::endl;
 }

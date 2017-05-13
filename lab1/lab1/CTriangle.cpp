@@ -69,7 +69,7 @@ std::array<Point, 3> CTriangle::GetPoints() const
 	return{ m_firstPoint, m_secondPoint, m_thirdPoint };
 }
 
-void CVisitableShape::Accept(IShapeVisitor & visitor)
+void CTriangle::Accept(IShapeVisitor & visitor)
 {
-	//visitor.Visit(*this);
+	visitor.Visit(*this);
 }

@@ -1,8 +1,8 @@
-#pragma once
 /*
-#include "CCircle.h"
-#include "CRectangle.h"
+#include "IShape.h"
 #include "CTriangle.h"
+#include "CRectangle.h"
+#include "CCircle.h"
 
 class IShapeVisitor
 {

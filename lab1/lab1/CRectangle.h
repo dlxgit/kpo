@@ -1,7 +1,7 @@
 #pragma once
-#include "VisitableShape.h"
+#include "IShape.h"
 
-class CRectangle : public CVisitableShape
+class CRectangle : public IShape
 {
 public:
 	CRectangle(const Point & position, double width, double height);

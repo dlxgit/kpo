@@ -1,11 +1,10 @@
 #pragma once
 #include "IShape.h"
-#include "VisitableShape.h"
 #include <array>
 #include "CLineSegment.h"
 
 
-class CTriangle : public CVisitableShape
+class CTriangle : public IShape
 {
 public:
 	CTriangle(const Point & firstPoint, const Point & secondPoint, const Point & thirdPoint);

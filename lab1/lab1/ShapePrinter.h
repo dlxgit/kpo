@@ -1,4 +1,5 @@
 #pragma once
+/*
 #include "ShapeVisitor.h"
 
 
@@ -9,3 +10,4 @@ public:
 	void Visit(CTriangle & shape) override;
 	void Visit(CCircle & shape) override;
 };
+*/
